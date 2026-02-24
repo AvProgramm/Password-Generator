@@ -3,28 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,
-    initial-scale=1.0">
-    <title>Random Password Generator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Password Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="password-container">
-        <h2>Random Password Generator</h2>
-        <div class="input-container">
-            <label for="input"></label><input
-            type="text"
-            id="input"
-            class="input"
-            placeholder="Create Password"
-            readonly
-            />
-            <i class="fa-solid fa-copy fa-2x"></i>
+    <canvas id="particles"></canvas>
+
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+
+    <div class="password-container" id="mainCard">
+        <div class="card-border"></div>
+
+        <div class="header">
+            <div class="logo-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h1>PASSWORD<span class="accent">GEN</span></h1>
+            <p class="subtitle">Military-grade password generation</p>
         </div>
-        <button class="btn">Generate</button>
+
+        <div class="password-display" id="passwordDisplay">
+            <div class="password-text-wrapper">
+                <input
+                    type="text"
+                    id="input"
+                    class="password-input"
+                    placeholder="Click Generate ⚡"
+                    readonly
+                />
+            </div>
+            <div class="password-actions">
+                <button class="icon-btn copy-btn" id="copyBtn" title="Copy to clipboard">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+                <button class="icon-btn refresh-btn" id="refreshBtn" title="Regenerate">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="strength-meter" id="strengthMeter">
+            <div class="strength-bars">
+                <div class="bar" id="bar1"></div>
+                <div class="bar" id="bar2"></div>
+                <div class="bar" id="bar3"></div>
+                <div class="bar" id="bar4"></div>
+            </div>
+            <span class="strength-label" id="strengthLabel">—</span>
+        </div>
+
+        <div class="controls">
+            <div class="slider-control">
+                <div class="slider-header">
+                    <label for="lengthSlider">Password Length</label>
+                    <span class="length-value" id="lengthValue">16</span>
+                </div>
+                <input type="range" id="lengthSlider" min="6" max="64" value="16" class="slider" />
+                <div class="slider-labels">
+                    <span>6</span>
+                    <span>64</span>
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="uppercase" checked />
+                    <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                    <span>ABC</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="lowercase" checked />
+                    <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                    <span>abc</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="numbers" checked />
+                    <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                    <span>123</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="symbols" checked />
+                    <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                    <span>#$&</span>
+                </label>
+            </div>
+        </div>
+
+        <button class="generate-btn" id="generateBtn">
+            <span class="btn-content">
+                <i class="fa-solid fa-bolt"></i>
+                Generate Password
+            </span>
+            <div class="btn-glare"></div>
+        </button>
     </div>
-    <div class="alert-container active">Password Copied</div>
+
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Copied to clipboard!</span>
+    </div>
+
     <script src="index.js"></script>
 </body>
 </html>
